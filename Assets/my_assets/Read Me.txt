@@ -1,0 +1,17 @@
+Tiny Soccer Head Game Asset is a complete set for soccer game.
+
+With 8 animations for each character :
+Action
+Falling Down
+Idle
+Jump
+Kick
+Move Backward
+Move Forward
+Sliding
+
+The main file contains :
+.JPG (Game Background)
+.PNG Sequences (Character Aniamtions)
+.PNG Files (For Each Caharacter Vector Part)
+.SCML (Spriter source file used to create the animation)
