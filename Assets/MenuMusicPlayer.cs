@@ -19,9 +19,9 @@ public class MenuMusicPlayer : MonoBehaviour
 
         instance = this;
 
-        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(gameObject);  // Bu objeyi sahneler arasında koru
 
-        // Müziği hemen çal
+        // Müziği hemen çalma
         PlayMenuMusic();
     }
 
@@ -37,13 +37,14 @@ public class MenuMusicPlayer : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.buildIndex == 0)  // SampleScene ise müziği durdur
+        // SampleScene açıldığında müziği durdur
+        if (scene.buildIndex == 0)
         {
             StopMenuMusic();
         }
         else
         {
-            // Diğer sahnelerde müziği çalmaya devam et
+            // Menü veya oyun dışındaki sahnelerde müziği durdurma
             PlayMenuMusic();
         }
     }
@@ -52,7 +53,7 @@ public class MenuMusicPlayer : MonoBehaviour
     {
         if (audioSource != null && ossiMossiClip != null)
         {
-            if (!audioSource.isPlaying)
+            if (!audioSource.isPlaying && Time.timeScale == 1)  // Sadece oyun durmadıysa müzik çalsın
             {
                 audioSource.clip = ossiMossiClip;
                 audioSource.loop = true;
@@ -64,6 +65,33 @@ public class MenuMusicPlayer : MonoBehaviour
     public void StopMenuMusic()
     {
         if (audioSource != null && audioSource.isPlaying)
+        {
+            audioSource.Stop();  // Müzik durur
+        }
+    }
+
+    // Ses seviyesini slider ile kontrol et
+    public void SetVolume(float volume)
+    {
+        if (audioSource != null)
+        {
+            audioSource.volume = volume;  // Ses seviyesini slider değeri ile ayarla
+        }
+    }
+
+    // Oyun başladığında müziği durdur (Pause veya EndGame paneli açıldığında)
+    public void PauseMusic()
+    {
+        if (audioSource != null && !audioSource.isPlaying && Time.timeScale == 0)
+        {
+            audioSource.Play();
+        }
+    }
+
+    // Oyun devam ettiğinde müzik duracak
+    public void ResumeMusic()
+    {
+        if (audioSource != null && audioSource.isPlaying && Time.timeScale == 1)
         {
             audioSource.Stop();
         }

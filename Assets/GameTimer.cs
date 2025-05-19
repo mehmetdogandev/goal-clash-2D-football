@@ -88,13 +88,16 @@ public class GameTimer : MonoBehaviour
 
         gameEnded = true;
 
-        Time.timeScale = 0f;
+        Time.timeScale = 0f;  // Oyun duracak, ancak müzik devam etmeli.
 
         int score1 = kalecizgisiSag.GetScore();
         int score2 = kalecizgisiSol.GetScore();
 
         if (endGamePanel != null)
-            endGamePanel.SetActive(true);
+            endGamePanel.SetActive(true);  // EndGamePanel'i aktif et
+
+        // Müziğin devam etmesini sağla
+        MenuMusicPlayer.instance.PauseMusic();
 
         if (score1 > score2)
         {
@@ -132,12 +135,12 @@ public class GameTimer : MonoBehaviour
     public void ReturnToMainMenu()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(1); // Ana menü sahnesi
     }
 
     public void GoToCharacterSelect()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(2); // Karakter seçimi sahnesi
     }
 }

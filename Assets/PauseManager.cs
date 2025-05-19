@@ -4,12 +4,15 @@ using UnityEngine.SceneManagement;
 public class PauseManager : MonoBehaviour
 {
     public GameObject pauseMenuPanel;
+    public GameObject endGamePanel;
+    public AudioSource audioSource;  // AudioSource componentini buraya ekleyin
 
     private bool isPaused = false;
 
     void Start()
     {
-        pauseMenuPanel.SetActive(false); // başta gizli
+        pauseMenuPanel.SetActive(false); // Başlangıçta gizle
+        endGamePanel.SetActive(false);   // EndGamePanel de gizli
     }
 
     public void TogglePause()
@@ -18,13 +21,19 @@ public class PauseManager : MonoBehaviour
 
         if (isPaused)
         {
-            Time.timeScale = 0f; // oyunu durdur
+            Time.timeScale = 0f;  // Oyun duracak
             pauseMenuPanel.SetActive(true);
+
+            // Müzik çalmaya başlasın
+            MenuMusicPlayer.instance.PauseMusic();
         }
         else
         {
-            Time.timeScale = 1f; // oyunu devam ettir
+            Time.timeScale = 1f;  // Oyun devam edecek
             pauseMenuPanel.SetActive(false);
+
+            // Müzik duracak
+            MenuMusicPlayer.instance.ResumeMusic();
         }
     }
 
@@ -33,6 +42,9 @@ public class PauseManager : MonoBehaviour
         isPaused = false;
         Time.timeScale = 1f;
         pauseMenuPanel.SetActive(false);
+
+        // Müzik duracak
+        MenuMusicPlayer.instance.ResumeMusic();
     }
 
     public void RestartGame()
@@ -44,14 +56,14 @@ public class PauseManager : MonoBehaviour
     public void ReturnToMainMenu()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(1); // Ana menü sahnesi index
+        SceneManager.LoadScene(1);  // Ana menü sahnesi
     }
-    void Update()
-{
-    if (Input.GetKeyDown(KeyCode.Escape))
-    {
-        TogglePause();
-    }
-}
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            TogglePause();
+        }
+    }
 }
