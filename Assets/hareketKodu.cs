@@ -33,7 +33,7 @@ public class hareketKodu : MonoBehaviour
         }
 
         // 3 saniye sonra hareket açılacak
-        StartCoroutine(EnableMovementAfterDelay(6f));
+        StartCoroutine(EnableMovementAfterDelay(2f));
     }
 
     IEnumerator EnableMovementAfterDelay(float delay)

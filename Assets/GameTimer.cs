@@ -37,7 +37,7 @@ public class GameTimer : MonoBehaviour
         UpdateTimerUI();
 
         // Sayaç başlatma gecikmesi
-        StartCoroutine(StartTimerAfterDelay(6f));
+        StartCoroutine(StartTimerAfterDelay(2f));
     }
 
     IEnumerator StartTimerAfterDelay(float delay)
